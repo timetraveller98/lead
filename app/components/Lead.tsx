@@ -131,7 +131,7 @@ const Lead = () => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={product}
-                    className="mx-1 my-3"
+                    className="m-1"
                     label="Gender"
                     onChange={(e:any)=>setProduct(e.target.value)}
                   >
