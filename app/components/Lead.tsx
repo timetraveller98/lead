@@ -65,7 +65,7 @@ const Lead = () => {
   return (
         <form
           onSubmit={handleSubmit}
-          className="d-flex align-items-center border py-4 shadow bg-light px-5 rounded bg-body my-4 justify-content-center flex-column"
+          className="d-flex align-items-center border p-5 shadow bg-light rounded bg-body my-4 justify-content-center flex-column"
         >
           <TextField
             fullWidth
@@ -150,7 +150,7 @@ const Lead = () => {
               />
               </div>
                 <br />
-          <div className="d-flex justify-content-center my-2 align-items-center">
+          <div className="d-flex justify-content-center mb-2 align-items-center">
             <Button type="submit" variant="contained" color="primary" endIcon={<MdSend/>}>
               Submit
             </Button>
