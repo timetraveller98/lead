@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
 export async function GET() {
   const currentUser = await getCurrentUser();
-  if (!currentUser || (currentUser.role !== 'SUPERADMIN')) {
+  if (!currentUser || (currentUser.role !== 'USER')) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
 }
  

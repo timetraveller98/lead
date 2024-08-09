@@ -6,11 +6,10 @@ import Image from 'react-bootstrap/Image';
 import { Container } from 'react-bootstrap';
 import { Button } from '@mui/material';
 import { useState } from 'react';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { useRouter } from 'next/navigation';
 import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
 import { signOut } from "next-auth/react";
-import { MdSend } from "react-icons/md";
 
 interface NavbarProps {
   email: string | null | undefined;
@@ -36,11 +35,11 @@ const NavbarData:React.FC<NavbarProps> = ({name,email}) => {
         <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
           <Nav className='text-secondary'>
             { email ? 
-          <div className='navButton1'>
+          <div className='navButton1 d-flex-align-items-center justify-content-center my-3'>
          <Button variant="contained" color="primary" endIcon={<LogoutIcon/>} onClick={handleLogout}>Logout</Button><div className='text-center m-0 p-0'>Welcome : <span style={{textTransform:"capitalize"}} className='text-primary'> {name}</span></div>
         </div>
-        :<div className='navButton1'>
-          <Button variant='contained' color="primary" onClick={()=>router.push('/admin')}>login</Button>
+        :<div className='navButton1 d-flex-align-items-center justify-content-center my-3'>
+          <Button variant='contained' color="primary" endIcon={<LoginIcon/>} onClick={()=>router.push('/admin')}>login</Button>
         </div>
         }
           </Nav>

@@ -1,14 +1,18 @@
-"use client";
+'use client'
+import toast from 'react-hot-toast'
+import { Container, Col, Row } from 'react-bootstrap';
+import axios from 'axios';
+import { useParams } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation';
+import AdminHeading from '@/app/components/AdminHeading';
 import { FormControl, Button,InputAdornment, InputLabel, MenuItem, Select } from '@mui/material';
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 import TextField from "@mui/material/TextField";
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import { MdSend } from "react-icons/md";
-import { useState } from "react";
 
-const Lead = () => {
+const Display = ({id}:any) => {
   const router = useRouter();
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
@@ -37,31 +41,51 @@ const Lead = () => {
     const regex = /^\d{10}$/;
     return regex.test(number);
   };
+    // Call Single API Data
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    let response = await fetch("/api/lead", {
-      method: "POST",
-      body: JSON.stringify({name,contact,email,product}),
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      toast.success("Thank You");
-      router.refresh();
-    } else {
-      toast.error("Email Already Added");
+    const params = useParams();
+    useEffect(() => {
+        const pullData = async () => {
+            let singleData = await axios.get(`/api/lead/${params.id}`).then((res) => (res.data.data)).
+                catch((err) => console.log(err, +'Error Found Fetch API'))
+            setName(singleData.name)
+            setEmail(singleData.email)
+            setContact(singleData.contact)
+            setProduct(singleData.product)
+        }
+
+        pullData();
+    }, [])
+    // Data
+
+    // Update User Data
+
+    const handleSubmit = async () => {
+
+        const pushData = await fetch(`/api/lead/${params.id}`, {
+            method: 'Put',
+            body: JSON.stringify({ name,email,product,contact }),
+            headers: { "Content-Type": "application/json" }
+        })
+        await pushData.json();
+        router.push('/admin');
+        toast.success("Lead Update")
     }
-  };
 
-  // END
 
-  return (
-        <form
+
+    return (
+        <Container>
+            <Row className='p-3 my-3 border'>
+            <Col md={12}>
+                    <div>
+                        <AdminHeading title='Update Lead' center />
+                    </div>
+               </Col>
+               <hr />
+               <Row className='d-flex align-items-center justify-content-center'>
+               <Col md={4}>
+               <form
           onSubmit={handleSubmit}
           className="d-flex align-items-center border py-4 shadow bg-light px-5 rounded bg-body my-4 justify-content-center flex-column"
         >
@@ -147,6 +171,12 @@ const Lead = () => {
             </Button>
           </div>
         </form>
-  );
-};
-export default Lead;
+               </Col>
+               </Row>
+                    
+            </Row>
+        </Container>
+    );
+}
+
+export default Display;

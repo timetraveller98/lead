@@ -22,7 +22,30 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState<any>();
   const [showPassword, setShowPassword] = useState(false);
-  const [isValid, setIsValid] = useState(false);
+  const [isValid, setIsValid] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+
+  const validatePassword = (value: string) => {
+    const uppercaseRegex = /[A-Z]/;
+    const lowercaseRegex = /[a-z]/;
+    const numberRegex = /\d/;
+    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    const lengthValid = value.length === 7;
+
+    if (
+      uppercaseRegex.test(value) &&
+      lowercaseRegex.test(value) &&
+      numberRegex.test(value) &&
+      specialCharRegex.test(value) &&
+      lengthValid
+    ) {
+      setError('');
+    } else {
+      setError(
+        "Password Total 7 Letters, Example : 'Ac@1234'"
+      );
+    }
+  };
 
   const validateEmail = (email: string): boolean => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -31,7 +54,6 @@ const Signup = () => {
 
   const handleEmail = (event:any) => {
     setEmail(event.target.value);
-    setIsValid(validateEmail(event.target.value));
   };
 
   // Password Start
@@ -42,8 +64,10 @@ const Signup = () => {
       event.preventDefault();
     };
 
-    const handlePasswordChange = (event: any) => {
-        setPassword(event.target.value);
+    const handlePasswordChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setPassword(value);
+    validatePassword(value);
       };
   // Password End
 
@@ -131,13 +155,15 @@ const Signup = () => {
                 </IconButton>
               </InputAdornment>
             }
-            label="New Password"
+            label="Password"
             required
           />
-        </FormControl>{" "}
+          {error && <p className="mb-0 pb-0" style={{ color: 'blue',fontSize:'11px' }}>{error}</p>}
+        </FormControl>
       <br />
-      <div className="d-flex justify-content-center my-3 align-items-center">
-        <Button onClick={handleSubmit} variant="contained" color="primary">
+      <div className="d-flex justify-content-center mb-3 align-items-center">
+      
+        <Button onClick={handleSubmit} disabled={!!error} variant="contained" color="primary">
           Submit
         </Button>
       </div>
