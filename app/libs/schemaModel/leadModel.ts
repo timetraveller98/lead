@@ -14,9 +14,17 @@ const leadSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    product: {
-        type: String,
-        required: true
+    productA: {
+        type: Boolean,
+        required: false
+    },
+    productB: {
+        type: Boolean,
+        required: false
+    },
+    productC: {
+        type: Boolean,
+        required: false
     }
 },
     {

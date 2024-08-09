@@ -93,8 +93,8 @@ const Signup = () => {
   // END
 
   return (
-    <div className="d-flex justify-content-center my-4 align-items-center flex-column">
-        <div className="border py-3 px-5">
+    <div className="d-flex justify-content-center  my-4 align-items-center flex-column">
+        <div className="border py-3 px-5 shadow bg-white">
    
         <TextField
           label="Name"

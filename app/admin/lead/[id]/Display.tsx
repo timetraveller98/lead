@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation';
 import AdminHeading from '@/app/components/AdminHeading';
-import { FormControl, Button,InputAdornment, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, Button,InputAdornment, InputLabel, MenuItem, Select, FormControlLabel, Checkbox } from '@mui/material';
 import TextField from "@mui/material/TextField";
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
@@ -17,7 +17,9 @@ const Display = ({id}:any) => {
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
-  const [product, setProduct] = useState("");
+  const [productA, setProductA] = useState<boolean>(false);
+  const [productB, setProductB] = useState<boolean>(false);
+  const [productC, setProductC] = useState<boolean>(false);
   const [isValid, setIsValid] = useState(false);
   const [isValidContact, setIsValidContact] = useState(false);
 
@@ -51,7 +53,9 @@ const Display = ({id}:any) => {
             setName(singleData.name)
             setEmail(singleData.email)
             setContact(singleData.contact)
-            setProduct(singleData.product)
+            setProductA(singleData.productA)
+            setProductB(singleData.productB)
+            setProductC(singleData.productC)
         }
 
         pullData();
@@ -64,7 +68,7 @@ const Display = ({id}:any) => {
 
         const pushData = await fetch(`/api/lead/${params.id}`, {
             method: 'Put',
-            body: JSON.stringify({ name,email,product,contact }),
+            body: JSON.stringify({ name,email,productA,productB,productC,contact }),
             headers: { "Content-Type": "application/json" }
         })
         await pushData.json();
@@ -149,21 +153,27 @@ const Display = ({id}:any) => {
             }}
           />
           <br />
-          <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Product</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={product}
-                    className=""
-                    label="Gender"
-                    onChange={(e:any)=>setProduct(e.target.value)}
-                  >
-                    <MenuItem value={"Product A"}>Product A</MenuItem>
-                    <MenuItem value={"Product B"}>Product B</MenuItem>
-                    <MenuItem value={"Product C"}>Product C</MenuItem>
-                  </Select>
-                </FormControl>
+          <div className='d-flex'>
+          <p className='mt-3 me-2'>Product : </p>
+          <FormControlLabel
+                control={<Checkbox />}
+                label="A"
+                checked={productA}
+                onChange={(e: any) => setProductA(e.target.checked)}
+              />
+          <FormControlLabel
+                control={<Checkbox />}
+                label="B"
+                checked={productB}
+                onChange={(e: any) => setProductB(e.target.checked)}
+              />
+          <FormControlLabel
+                control={<Checkbox />}
+                label="C"
+                checked={productC}
+                onChange={(e: any) => setProductC(e.target.checked)}
+              />
+              </div>
                 <br />
           <div className="d-flex justify-content-center my-2 align-items-center">
             <Button type="submit" variant="contained" color="primary" endIcon={<MdSend/>}>

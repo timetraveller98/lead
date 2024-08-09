@@ -7,9 +7,9 @@ export async function POST(req: Request) {
     try {
         await Connect()
         const body = await req.json();
-        const {name, contact, email,product } = body;
+        const {name, contact, email,productA,productB,productC } = body;
         const Popup = new leadModelData({
-            name, contact, email,product
+            name, contact, email,productA,productB,productC
           });
 
        const result  = await Popup.save();
