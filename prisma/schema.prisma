@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = "mongodb+srv://monikahr:Ak7814478429@cluster0.qkqfmsl.mongodb.net/career"
+}
+
+model User {
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  password         String
+  email            String    @unique
+  name             String
+  resetToken       String?   @unique
+  resetTokenExpiry DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  role             Role      @default(USER)
+}
+
+enum Role {
+  USER
+  SUPERADMIN
+  ADMIN
+  SUBADMIN
+}
