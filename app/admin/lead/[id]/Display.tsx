@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation';
 import AdminHeading from '@/app/components/AdminHeading';
-import { FormControl, Button,InputAdornment, InputLabel, MenuItem, Select, FormControlLabel, Checkbox } from '@mui/material';
+import { Button,InputAdornment, FormControlLabel, Checkbox } from '@mui/material';
 import TextField from "@mui/material/TextField";
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
@@ -80,10 +80,10 @@ const Display = ({id}:any) => {
 
     return (
         <Container>
-            <Row className='p-3 my-3 border'>
+            <Row className='my-3 border'>
             <Col md={12}>
                     <div>
-                        <AdminHeading title='Update Lead' center />
+                        <AdminHeading title='Update Product' center />
                     </div>
                </Col>
                <hr />
@@ -91,7 +91,7 @@ const Display = ({id}:any) => {
                <Col md={4}>
                <form
           onSubmit={handleSubmit}
-          className="d-flex align-items-center border py-4 shadow bg-light px-5 rounded bg-body my-4 justify-content-center flex-column"
+          className="d-flex align-items-center border p-5 shadow bg-light  rounded bg-body my-4 justify-content-center flex-column"
         >
           <TextField
             fullWidth
@@ -154,7 +154,7 @@ const Display = ({id}:any) => {
           />
           <br />
           <div className='d-flex'>
-          <p className='mt-3 me-2'>Product : </p>
+          <p className='mt-3 me-1'>Product :</p>
           <FormControlLabel
                 control={<Checkbox />}
                 label="A"

@@ -52,7 +52,11 @@ const updateLead =(id: any)=>{
         { field: 'name', headerName: 'Name', width: 150 },
         { field: 'contact', headerName: 'Contact', width: 150 },
         { field: 'email', headerName: 'Email', width: 250 },
-        { field: 'product', headerName: 'Product', width: 150 },
+        {
+            field: 'products', headerName: 'Products', width: 200, renderCell: (params: any) => (
+                <p>{params.row.productA},{params.row.productB},{params.row.productC}</p>
+            )
+        },
         {
             field: 'update', headerName: 'Update', width: 130, renderCell: (params: any) => (
               

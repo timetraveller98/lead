@@ -15,13 +15,23 @@ import {
   import Visibility from "@mui/icons-material/Visibility";
   import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useState } from 'react'
+import Captcha from '../components/Captcha';
 
 
 const Login = () => {
     const router = useRouter();
+    const [captchaVerified, setCaptchaVerified] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const handleCaptchaVerify = (token: string | null) => {
+      if (token) {
+        setCaptchaVerified(true);
+      } else {
+        setCaptchaVerified(false);
+      }
+    };
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (
@@ -34,7 +44,9 @@ const Login = () => {
         setPassword(event.target.value);
       };
     
-        const handleSubmit = async() => {
+        const handleSubmit = async(e: React.FormEvent) => {
+          e.preventDefault();
+          if (captchaVerified) {
             const signInData = await signIn('credentials',{
                email: email,
                password:password,
@@ -48,6 +60,9 @@ const Login = () => {
                 toast.success("Thank You")
                 router.refresh();
             }
+          } else {
+            toast.error("Please complete the CAPTCHA verification.");
+          }
           }
     // END
     return (
@@ -81,12 +96,13 @@ const Login = () => {
                 </IconButton>
               </InputAdornment>
             }
-            label="New Password"
+            label="Password"
             required
           />
-        </FormControl>{" "}
+        </FormControl>
+        <Captcha onVerify={handleCaptchaVerify} />
                 <div className='d-flex justify-content-center my-2 align-items-center'>
-                <Button onClick={handleSubmit} variant='contained' color='primary'>Submit</Button>
+                <Button onClick={handleSubmit} disabled={!captchaVerified} variant='contained' color='primary'>Submit</Button>
                 </div>
                 <div>
                     <p className='my-3 text-center' style={{ fontSize: '14px', cursor: 'pointer' }}>Don't' Have Account ? <span className="text-primary" onClick={() => router.push('/signup')}>Sign up</span></p>
