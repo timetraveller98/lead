@@ -50,7 +50,7 @@ const Signup = () => {
   const handleSubmit = async () => {
     let response = await fetch("/api/user", {
       method: "POST",
-      body: JSON.stringify({name,email, password}),
+      body: JSON.stringify({name,email,password}),
       mode: "cors",
       cache: "no-cache",
       credentials: "same-origin",

@@ -13,6 +13,10 @@ const leadSchema = new mongoose.Schema({
     contact: {
         type: Number,
         required: true
+    },
+    product: {
+        type: String,
+        required: true
     }
 },
     {

@@ -1,5 +1,5 @@
 "use client";
-import { Button, InputAdornment } from "@mui/material";
+import { FormControl, Button,InputAdornment, InputLabel, MenuItem, Select } from '@mui/material';
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import TextField from "@mui/material/TextField";
@@ -13,6 +13,7 @@ const Lead = () => {
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
+  const [product, setProduct] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [isValidContact, setIsValidContact] = useState(false);
 
@@ -41,7 +42,7 @@ const Lead = () => {
     e.preventDefault();
     let response = await fetch("/api/lead", {
       method: "POST",
-      body: JSON.stringify({name,contact,email}),
+      body: JSON.stringify({name,contact,email,product}),
       mode: "cors",
       cache: "no-cache",
       credentials: "same-origin",
@@ -124,6 +125,22 @@ const Lead = () => {
             }}
           />
           <br />
+          <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Product</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={product}
+                    className="mx-1 my-3"
+                    label="Gender"
+                    onChange={(e:any)=>setProduct(e.target.value)}
+                  >
+                    <MenuItem value={"Product A"}>Product A</MenuItem>
+                    <MenuItem value={"Product B"}>Product B</MenuItem>
+                    <MenuItem value={"Product C"}>Product C</MenuItem>
+                  </Select>
+                </FormControl>
+                <br />
           <div className="d-flex justify-content-center my-2 align-items-center">
             <Button type="submit" variant="contained" color="primary" endIcon={<MdSend/>}>
               Submit

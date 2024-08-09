@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = "mongodb+srv://monikahr:Ak7814478429@cluster0.qkqfmsl.mongodb.net/career"
+  url      = "mongodb+srv://school:student123@cluster0.64833pk.mongodb.net/lead"
 }
 
 model User {
@@ -12,8 +12,6 @@ model User {
   password         String
   email            String    @unique
   name             String
-  resetToken       String?   @unique
-  resetTokenExpiry DateTime?
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
   role             Role      @default(USER)
