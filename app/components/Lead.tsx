@@ -53,7 +53,7 @@ const Lead = () => {
       },
     });
     if (response.ok) {
-      toast.success("Thank You");
+      toast.success("Product Added Successfully");
       router.refresh();
     } else {
       toast.error("Email Already Added");

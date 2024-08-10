@@ -37,7 +37,7 @@ const updateLead =(id: any)=>{
                     cache: 'no-cache',
                 });
                 if (response.ok) {
-                    toast.success('Lead deleted successfully');
+                    toast.success('Product deleted successfully');
                     router.refresh()
                 } else {
                     toast.error('Failed to delete Lead');
