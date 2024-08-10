@@ -106,7 +106,7 @@ const Login = () => {
   />
      </div>
                 <div className='d-flex justify-content-center my-2 align-items-center'>
-                <Button onClick={handleSubmit} disabled={!captchaVerified} variant='contained' color='primary'>Submit</Button>
+                <Button onClick={handleSubmit} variant='contained' color='primary'>Submit</Button>
                 </div>
                 <div>
                     <p className='my-3 text-center' style={{ fontSize: '14px', cursor: 'pointer' }}>Don't' Have Account ? <span className="text-primary" onClick={() => router.push('/signup')}>Sign up</span></p>
