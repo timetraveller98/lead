@@ -23,11 +23,9 @@ const NavbarData:React.FC<NavbarProps> = ({name,email}) => {
   const handleLogout = () => {
     const callbackUrl = `${window.location.origin}/login`;
     signOut({ redirect: false, callbackUrl });
-    setExpanded(!expanded)
     router.refresh();
   }
   const handleLogin = () => {
-    setExpanded(!expanded)
     router.push('/login')
   }
 

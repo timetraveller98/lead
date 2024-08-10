@@ -26,9 +26,9 @@ const Footer = () => {
         <Col md={4}>
           <ul className='mt-4'>
               <h5 className='fw-bold mb-4'>Company</h5> 
+            <Link href={'/admin'} className='text-decoration-none text-secondary'><li className='my-2'>Admin</li></Link>
             <Link href={'/'} className='text-decoration-none text-secondary'><li className='my-2'>About Us</li></Link>
             <Link href={'/'} className='text-decoration-none text-secondary'><li className='my-2'>Career</li></Link>
-            <Link href={'/'} className='text-decoration-none text-secondary'><li className='my-2'>Post Job</li></Link>
             <Link href={'/'} className='text-decoration-none text-secondary'><li className='my-2'>Contact Us</li></Link>
             
               </ul>
