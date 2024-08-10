@@ -97,7 +97,7 @@ const AdminLogin = () => {
         size="normal"
         
       />
-                <div className='d-flex justify-content-center my-2 align-items-center'>
+                <div className='d-flex justify-content-center my-3 align-items-center'>
                 <Button onClick={handleSubmit} variant='contained' color='primary'>Submit</Button>
                 </div>
                 <div>
