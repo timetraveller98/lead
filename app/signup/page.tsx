@@ -85,7 +85,7 @@ const Signup = () => {
     if (response.status === 409) {
       toast.error("User Already Registered");
     } else if (response.ok) {
-      router.push("/");
+      router.push("/login");
       toast.success("Thank you! Please log in.");
     } else {
       toast.error("Please complete the form accurately");

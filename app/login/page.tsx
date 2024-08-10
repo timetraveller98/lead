@@ -42,7 +42,6 @@ const Login = () => {
     
         const handleSubmit = async(e: React.FormEvent) => {
           e.preventDefault();
-          if (captchaVerified) {
             const signInData = await signIn('credentials',{
                email: email,
                password:password,
@@ -52,13 +51,10 @@ const Login = () => {
                 toast.error("Invalid Credentials")
             } else { 
                 
-                router.push('/employer')  
+                router.push('/admin')  
                 toast.success("Thank You")
                 router.refresh();
             }
-          } else {
-            toast.error("Please complete the CAPTCHA verification.");
-          }
           }
     // END
     return (
