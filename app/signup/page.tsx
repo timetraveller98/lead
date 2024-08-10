@@ -24,6 +24,7 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isValid, setIsValid] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+  const [isValidEmail, setIsValidEmail] = useState(false);
 
   const validatePassword = (value: string) => {
     const uppercaseRegex = /[A-Z]/;
@@ -54,6 +55,7 @@ const Signup = () => {
 
   const handleEmail = (event:any) => {
     setEmail(event.target.value);
+    setIsValidEmail(validateEmail(event.target.value));
   };
 
   // Password Start
@@ -123,6 +125,7 @@ const Signup = () => {
           type="email"
           value={email}
           onChange={handleEmail}
+          helperText={!isValidEmail && email !== "" && ""}
           autoComplete="off"
       required
       fullWidth
@@ -165,7 +168,7 @@ const Signup = () => {
       <br />
       <div className="d-flex justify-content-center mb-3 align-items-center">
       
-        <Button onClick={handleSubmit} disabled={!!error} variant="contained" color="primary">
+        <Button onClick={handleSubmit} disabled={!!error | !isValidEmail} variant="contained" color="primary">
           Submit
         </Button>
       </div>
