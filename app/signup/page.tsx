@@ -168,7 +168,7 @@ const Signup = () => {
       <br />
       <div className="d-flex justify-content-center mb-3 align-items-center">
       
-        <Button onClick={handleSubmit} disabled={!!error | !isValidEmail} variant="contained" color="primary">
+        <Button onClick={handleSubmit} disabled={!!error || !isValidEmail} variant="contained" color="primary">
           Submit
         </Button>
       </div>
