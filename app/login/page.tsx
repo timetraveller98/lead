@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { signIn} from 'next-auth/react'
 import EmailIcon from '@mui/icons-material/Email';
+import ReCAPTCHA from "react-google-recaptcha";
 import {
     TextField,
     Button,
@@ -15,7 +16,6 @@ import {
   import Visibility from "@mui/icons-material/Visibility";
   import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useState } from 'react'
-import Captcha from '../components/Captcha';
 
 
 const Login = () => {
@@ -25,12 +25,8 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleCaptchaVerify = (token: string | null) => {
-      if (token) {
-        setCaptchaVerified(true);
-      } else {
-        setCaptchaVerified(false);
-      }
+    const capcthaChange = ()=>{
+
     };
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -75,7 +71,7 @@ const Login = () => {
                   ),
                 }}
                 type="email" name='email' value={email} autoComplete='off' onChange={(e:any)=>setEmail(e.target.value)} required/><br />
-                <FormControl className="my-3" required variant="outlined">
+                <FormControl className="my-3" fullWidth required variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">
            Password
           </InputLabel>
@@ -91,6 +87,7 @@ const Login = () => {
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
                   edge="end"
+                
                 >
                   {showPassword ? <VisibilityOff color='primary' /> : <Visibility color='primary' />}
                 </IconButton>
@@ -98,9 +95,20 @@ const Login = () => {
             }
             label="Password"
             required
+            fullWidth
           />
         </FormControl>
-        <Captcha onVerify={handleCaptchaVerify} />
+        <br />
+        <div className='w-75'>
+
+     
+        <ReCAPTCHA
+    sitekey="6LcukCMqAAAAAI9an8cFv9yBi65yU3ED3fI63_UM"
+    onChange={capcthaChange}
+    size="normal"
+    
+  />
+     </div>
                 <div className='d-flex justify-content-center my-2 align-items-center'>
                 <Button onClick={handleSubmit} disabled={!captchaVerified} variant='contained' color='primary'>Submit</Button>
                 </div>
