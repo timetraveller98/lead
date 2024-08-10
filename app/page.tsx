@@ -8,7 +8,7 @@ const Home = () => {
       <Row >
         <Col md={12}>
           <div>
-            <AdminHeading title="Add Product" center />
+            <AdminHeading title="Lead Application" center />
           </div>
         </Col>
       </Row>

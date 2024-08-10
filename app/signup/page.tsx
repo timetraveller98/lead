@@ -82,11 +82,13 @@ const Signup = () => {
         "Content-Type": "application/json",
       },
     });
-    if (response.ok) {
+    if (response.status === 409) {
+      toast.error("User Already Registered");
+    } else if (response.ok) {
       router.push("/");
-      toast.success("Thank you Please Logged In !");
+      toast.success("Thank you! Please log in.");
     } else {
-      toast.error("User Already Resistered");
+      toast.error("Please complete the form accurately");
     }
   };
 
@@ -104,8 +106,8 @@ const Signup = () => {
           autoComplete="off"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          required
-          fullWidth
+      required
+      fullWidth
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">< PeopleIcon /></InputAdornment>
@@ -117,13 +119,13 @@ const Signup = () => {
         <TextField
           label="Email"
           variant="outlined"
-          fullWidth
           className=""
           type="email"
           value={email}
           onChange={handleEmail}
           autoComplete="off"
-          required
+      required
+      fullWidth
         
           InputProps={{
             endAdornment: (
@@ -133,14 +135,13 @@ const Signup = () => {
         /> 
         <br />
    
-        <FormControl className="my-4" required variant="outlined" fullWidth>
+        <FormControl className="my-4" variant="outlined" fullWidth>
           <InputLabel htmlFor="outlined-adornment-password">
            Password
           </InputLabel>
           <OutlinedInput
             id="outlined-adornment-password"
             value={password}
-            fullWidth
             onChange={handlePasswordChange}
             type={showPassword ? "text" : "password"}
             endAdornment={
@@ -156,7 +157,8 @@ const Signup = () => {
               </InputAdornment>
             }
             label="Password"
-            required
+      required
+      fullWidth
           />
           {error && <p className="mb-0 pb-0" style={{ color: 'blue',fontSize:'11px' }}>{error}</p>}
         </FormControl>

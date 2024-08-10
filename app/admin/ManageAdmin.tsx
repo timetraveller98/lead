@@ -54,7 +54,7 @@ const updateLead =(id: any)=>{
         { field: 'email', headerName: 'Email', width: 250 },
         {
             field: 'products', headerName: 'Products', width: 200, renderCell: (params: any) => (
-                <p>{params.row.productA},{params.row.productB},{params.row.productC}</p>
+                <p>{params.row.productA ? " A, ":null}{params.row.productB? " B, ":null}{params.row.productC? "C ":null}</p>
             )
         },
         {
@@ -77,6 +77,9 @@ const updateLead =(id: any)=>{
                 <Col md={12} className='my-3'>
                 <Box sx={{ height: '400px', width: '100%' }}>
                     <DataGrid
+                    disableColumnFilter
+                    disableColumnSelector
+                    disableDensitySelector
                         rows={leadData}
                         columns={columns}
                         getRowId={(row) => row._id}

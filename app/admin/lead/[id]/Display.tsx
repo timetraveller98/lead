@@ -64,22 +64,34 @@ const Display = ({id}:any) => {
 
     // Update User Data
 
-    const handleSubmit = async () => {
-
-        const pushData = await fetch(`/api/lead/${params.id}`, {
-            method: 'Put',
-            body: JSON.stringify({ name,email,productA,productB,productC,contact }),
-            headers: { "Content-Type": "application/json" }
-        })
-        await pushData.json();
+    const handleSubmit = async (e:any) => {
+      e.preventDefault();
+      try {
+        const response = await axios.put(`/api/lead/${params.id}`, {
+          name,
+          email,
+          productA,
+          productB,
+          productC,
+          contact,
+        });
+  
+        if (response.status !== 200) {
+          toast.error('Failed to update product');
+          return;
+        }
+  
         router.push('/admin');
-        toast.success("Lead Update")
-    }
+        toast.success("Product Updated Successfully");
+      } catch (error) {
+        toast.error("Failed to update product");
+      }
+    };
 
 
 
     return (
-        <Container>
+        <Container className='my-3'>
             <Row className='my-3 border'>
             <Col md={12}>
                     <div>
@@ -88,10 +100,10 @@ const Display = ({id}:any) => {
                </Col>
                <hr />
                <Row className='d-flex align-items-center justify-content-center'>
-               <Col md={4}>
+               <Col md={4} className="d-flex align-items-center my-4 mx-2 p-5 shadow bg-light rounded bg-body justify-content-center">
                <form
-          onSubmit={handleSubmit}
-          className="d-flex align-items-center border p-5 shadow bg-light  rounded bg-body my-4 justify-content-center flex-column"
+
+          
         >
           <TextField
             fullWidth
@@ -100,7 +112,7 @@ const Display = ({id}:any) => {
             label="Name"
             multiline
             variant="outlined"
-            className=""
+            className="m-1 p-1"
             type="text"
             autoComplete="off"
             required
@@ -121,7 +133,7 @@ const Display = ({id}:any) => {
             helperText={!isValid && contact !== "" && ""}
             multiline
             variant="outlined"
-            className=""
+            className="m-1 p-1"
             type="tel"
             autoComplete="off"
             required
@@ -140,7 +152,7 @@ const Display = ({id}:any) => {
             helperText={!isValid && email !== "" && ""}
             multiline
             variant="outlined"
-            className=""
+            className="m-1 p-1"
             type="email"
             autoComplete="off"
             required
@@ -176,7 +188,7 @@ const Display = ({id}:any) => {
               </div>
                 <br />
           <div className="d-flex justify-content-center my-2 align-items-center">
-            <Button type="submit" variant="contained" color="primary" endIcon={<MdSend/>}>
+            <Button onClick={handleSubmit} variant="contained" color="primary" endIcon={<MdSend/>}>
               Submit
             </Button>
           </div>

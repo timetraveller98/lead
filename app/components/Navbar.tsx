@@ -23,7 +23,12 @@ const NavbarData:React.FC<NavbarProps> = ({name,email}) => {
   const handleLogout = () => {
     const callbackUrl = `${window.location.origin}/login`;
     signOut({ redirect: false, callbackUrl });
+    setExpanded(!expanded)
     router.refresh();
+  }
+  const handleLogin = () => {
+    setExpanded(!expanded)
+    router.push('/login')
   }
 
   const closeNavbar = () => setExpanded(false);
@@ -33,13 +38,13 @@ const NavbarData:React.FC<NavbarProps> = ({name,email}) => {
         <Link href="/" onClick={closeNavbar}><Image src='/logo.png' className='m-0 p-2' width={220} height={80} alt='logo' /></Link>
         <Navbar.Toggle className='me-3 text-light' onClick={() => setExpanded(!expanded)} />
         <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
-          <Nav className='text-secondary'>
+          <Nav className='text-secondary d-flex align-items-center my-4'>
             { email ? 
-          <div className='navButton1 d-flex-align-items-center justify-content-center my-3'>
+          <div className='navButton1'>
          <Button variant="contained" color="primary" endIcon={<LogoutIcon/>} onClick={handleLogout}>Logout</Button><div className='text-center m-0 p-0'>Welcome : <span style={{textTransform:"capitalize"}} className='text-primary'> {name}</span></div>
         </div>
-        :<div className='navButton1 d-flex-align-items-center justify-content-center my-3'>
-          <Button variant='contained' color="primary" endIcon={<LoginIcon/>} onClick={()=>router.push('/admin')}>login</Button>
+        :<div className='navButton1'>
+          <Button variant='contained' color="primary" endIcon={<LoginIcon/>} onClick={handleLogin}>login</Button>
         </div>
         }
           </Nav>
