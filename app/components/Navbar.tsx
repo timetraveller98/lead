@@ -20,11 +20,15 @@ const NavbarData:React.FC<NavbarProps> = ({name,email}) => {
   const [expanded, setExpanded] = useState(false);
   const router = useRouter()
 
-  const handleLogout = () => {
-    signOut({ redirect: false});
-    router.refresh();
-    router.push('/');
-  }
+  const handleLogout = async () => {
+    try {
+      await signOut({ redirect: false });
+      router.refresh()
+      router.push("/login")
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
   const handleLogin = () => {
     router.push('/login')
   }
