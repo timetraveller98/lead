@@ -20,7 +20,6 @@ import { useState } from 'react'
 
 const Login = () => {
     const router = useRouter();
-    const [captchaVerified, setCaptchaVerified] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -44,8 +43,8 @@ const Login = () => {
           e.preventDefault();
           if (!recaptchaToken) {
             toast.error("Please verify the reCAPTCHA")
-            return;
           }
+          else{
       
             const signInData = await signIn('credentials',{
                email: email,
@@ -60,6 +59,7 @@ const Login = () => {
                 toast.success("Thank You")
                 router.refresh();
             }
+          }
           }
     // END
     return (
