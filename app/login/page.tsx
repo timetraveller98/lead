@@ -29,19 +29,6 @@ const Login = () => {
   const handleRecaptchaChange = (token: string | null) => {
     setRecaptchaToken(token);
   };
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!recaptchaToken) {
-      alert('Please verify the reCAPTCHA.');
-      return;
-    }
-
-    const capcthaChange = ()=>{
-
-    };
-
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (
       event: React.MouseEvent<HTMLButtonElement>
@@ -55,6 +42,11 @@ const Login = () => {
     
         const handleSubmit = async(e: React.FormEvent) => {
           e.preventDefault();
+          if (!recaptchaToken) {
+            toast.error("Please verify the reCAPTCHA")
+            return;
+          }
+      
             const signInData = await signIn('credentials',{
                email: email,
                password:password,
