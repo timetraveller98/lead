@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
 import EmailIcon from "@mui/icons-material/Email";
 import ReCAPTCHA from "react-google-recaptcha";
+
 import {
   TextField,
   Button,
@@ -52,13 +53,6 @@ try{
     toast.error("An error occurred. Please try again.");
     console.error("Sign-in error:", error);
   }
-  };
-
-  const handleRecaptchaChange = (token: string | null) => {
-    setRecaptchaToken(token);
-    if (token) {
-      handleSubmit();
-    }
   };
   // END
   return (
@@ -118,7 +112,7 @@ try{
         <div className="w-75">
           <ReCAPTCHA
             sitekey="6LcukCMqAAAAAI9an8cFv9yBi65yU3ED3fI63_UM"
-            onChange={handleRecaptchaChange}
+            onChange={(token)=>setRecaptchaToken(token)}
             size="normal"
           />
         </div>

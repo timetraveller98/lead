@@ -23,11 +23,7 @@ const AdminLogin = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
-    const capcthaChange = ()=>{
-
-    };
-
+    const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (
       event: React.MouseEvent<HTMLButtonElement>
@@ -40,6 +36,7 @@ const AdminLogin = () => {
       };
     
         const handleSubmit = async() => {
+          try{
             const signInData = await signIn('credentials',{
                email: email,
                password:password,
@@ -53,7 +50,11 @@ const AdminLogin = () => {
                 toast.success("Thank You")
                 router.refresh();
             }
-          }
+           } catch (error) {
+              toast.error("An error occurred. Please try again.");
+              console.error("Sign-in error:", error);
+            }
+          };
     // END
     return (
         <div className='d-flex justify-content-center my-5 align-items-center'>
@@ -93,12 +94,12 @@ const AdminLogin = () => {
         </FormControl>
         <ReCAPTCHA
         sitekey="6LcukCMqAAAAAI9an8cFv9yBi65yU3ED3fI63_UM"
-        onChange={capcthaChange}
+        onChange={(token)=>setRecaptchaToken(token)}
         size="normal"
         
       />
                 <div className='d-flex justify-content-center my-3 align-items-center'>
-                <Button onClick={handleSubmit} variant='contained' color='primary'>Submit</Button>
+                <Button onClick={handleSubmit} disabled={!recaptchaToken} variant='contained' color='primary'>Submit</Button>
                 </div>
                 <div>
                     <p className='my-3 text-center' style={{ fontSize: '14px', cursor: 'pointer' }}>Don't' Have Account ? <span className="text-primary" onClick={() => router.push('/signup')}>Sign up</span></p>
