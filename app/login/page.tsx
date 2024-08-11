@@ -24,10 +24,6 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
-
-  const handleRecaptchaChange = (token: string | null) => {
-    setRecaptchaToken(token);
-  };
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (
       event: React.MouseEvent<HTMLButtonElement>
@@ -41,10 +37,6 @@ const Login = () => {
     
         const handleSubmit = async(e: React.FormEvent) => {
           e.preventDefault();
-          if (!recaptchaToken) {
-            toast.error("Please verify the reCAPTCHA")
-          }
-          else{
       
             const signInData = await signIn('credentials',{
                email: email,
@@ -59,7 +51,6 @@ const Login = () => {
                 toast.success("Thank You")
                 router.refresh();
             }
-          }
           }
     // END
     return (
@@ -105,13 +96,13 @@ const Login = () => {
      
         <ReCAPTCHA
     sitekey="6LcukCMqAAAAAI9an8cFv9yBi65yU3ED3fI63_UM"
-    onChange={handleRecaptchaChange}
+    onChange={(token:any)=>setRecaptchaToken(token)}
     size="normal"
     
   />
      </div>
                 <div className='d-flex justify-content-center my-3 align-items-center'>
-                <Button onClick={handleSubmit} variant='contained' color='primary'>Submit</Button>
+                <Button onClick={handleSubmit} disabled={!recaptchaToken} variant='contained' color='primary'>Submit</Button>
                 </div>
                 <div>
                     <p className='my-3 text-center' style={{ fontSize: '14px', cursor: 'pointer' }}>Don't' Have Account ? <span className="text-primary" onClick={() => router.push('/signup')}>Sign up</span></p>
