@@ -35,10 +35,6 @@ const Login = () => {
   };
 
   const handleSubmit = async () => {
-    if (!recaptchaToken) {
-      toast.error("Please verify the reCAPTCHA");
-      return;
-    }
 try{
     const signInData = await signIn("credentials", {
       email: email,
@@ -129,6 +125,7 @@ try{
         <div className="d-flex justify-content-center my-3 align-items-center">
           <Button
             onClick={handleSubmit}
+            disabled={!recaptchaToken}
             variant="contained"
             color="primary"
           >

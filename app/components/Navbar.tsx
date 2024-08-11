@@ -22,6 +22,7 @@ const NavbarData:React.FC<NavbarProps> = ({name,email}) => {
 
   const handleLogout = () => {
     signOut({ redirect: false});
+    router.refresh();
     router.push('/');
   }
   const handleLogin = () => {
