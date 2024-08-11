@@ -24,6 +24,19 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token);
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!recaptchaToken) {
+      alert('Please verify the reCAPTCHA.');
+      return;
+    }
 
     const capcthaChange = ()=>{
 
@@ -100,7 +113,7 @@ const Login = () => {
      
         <ReCAPTCHA
     sitekey="6LcukCMqAAAAAI9an8cFv9yBi65yU3ED3fI63_UM"
-    onChange={capcthaChange}
+    onChange={handleRecaptchaChange}
     size="normal"
     
   />
