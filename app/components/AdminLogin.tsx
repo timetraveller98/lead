@@ -93,14 +93,13 @@ const AdminLogin = () => {
           />
         </FormControl>
         <br />
-        <div style={{ width: '180px' }}>
 
         <ReCAPTCHA
         sitekey="6LcukCMqAAAAAI9an8cFv9yBi65yU3ED3fI63_UM"
         onChange={(token)=>setRecaptchaToken(token)}
         size="normal"
         
-      /></div>
+      />
                 <div className='d-flex justify-content-center my-3 align-items-center'>
                 <Button onClick={handleSubmit} disabled={!recaptchaToken} variant='contained' color='primary'>Submit</Button>
                 </div>
