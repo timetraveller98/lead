@@ -24,6 +24,7 @@ const NavbarData:React.FC<NavbarProps> = ({name,email}) => {
     try {
       await signOut({ redirect: false });
       router.refresh()
+      router.push('/')
     } catch (error) {
       console.error("Logout error:", error);
     }
