@@ -109,7 +109,7 @@ try{
           />
         </FormControl>
         <br />
-        <div className="w-75">
+        <div style={{ width: '250px' }}>
           <ReCAPTCHA
             sitekey="6LcukCMqAAAAAI9an8cFv9yBi65yU3ED3fI63_UM"
             onChange={(token)=>setRecaptchaToken(token)}

@@ -92,7 +92,8 @@ const AdminLogin = () => {
             fullWidth
           />
         </FormControl>
-        <div style={{ width: '300px' }}>
+        <br />
+        <div style={{ width: '250px' }}>
 
         <ReCAPTCHA
         sitekey="6LcukCMqAAAAAI9an8cFv9yBi65yU3ED3fI63_UM"
