@@ -31,3 +31,23 @@ export async function POST(req:Request) {
     }
     
 }
+// GET API
+export async function GET() {
+    const currentUser = await getCurrentUser();
+    if (!currentUser || currentUser.role === 'USER') {
+      try {
+        const data = await db.user.findMany();
+        return NextResponse.json({ data, success: true });
+      } catch (error) {
+        return NextResponse.json(
+          { message: "Something went wrong" },
+          { status: 500 }
+        );
+      }
+    } else {
+      return NextResponse.json(
+        { message: "Unauthorized User" },
+        { status: 401 }
+      );
+    }
+  }

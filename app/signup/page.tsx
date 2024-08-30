@@ -25,6 +25,8 @@ const Signup = () => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [isValidEmail, setIsValidEmail] = useState(false);
+  const [errorName, setErrorName] = useState(false);
+  const [errorEmail, setErrorEmail] = useState(false);
 
   const validatePassword = (value: string) => {
     const uppercaseRegex = /[A-Z]/;
@@ -53,9 +55,15 @@ const Signup = () => {
     return regex.test(email);
   };
 
-  const handleEmail = (event:any) => {
+
+  const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
-    setIsValidEmail(validateEmail(event.target.value));
+    setErrorEmail(!validateEmail(event.target.value));
+  };
+
+  const handleName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+    setErrorName(event.target.value.trim() === "");
   };
 
   // Password Start
@@ -73,7 +81,16 @@ const Signup = () => {
       };
   // Password End
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorName(name.trim() === "");
+    setErrorEmail(email.trim() === "");
+    if (
+      name.trim() === "" ||
+      email.trim() === ""
+    ) {
+      return;
+    }
     let response = await fetch("/api/user", {
       method: "POST",
       body: JSON.stringify({name,email,password}),
@@ -84,14 +101,20 @@ const Signup = () => {
         "Content-Type": "application/json",
       },
     });
-    if (response.status === 409) {
-      toast.error("User Already Registered");
-    } else if (response.ok) {
-      router.push("/login");
+    const responseData = await response.json();
+    if (response.ok) {
       toast.success("Thank you! Please log in.");
+      router.push("/login");
+    } else if (
+      response.status === 400 ||
+      response.status === 409 ||
+      response.status === 404
+    ) {
+      toast.error(responseData.message);
     } else {
-      toast.error("Please complete the form accurately");
+      toast.error("Something went wrong");
     }
+    
   };
 
   // END
@@ -105,6 +128,7 @@ const Signup = () => {
           variant="outlined"
           className="my-4"
           type="text"
+          error={errorName}
           autoComplete="off"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -121,11 +145,12 @@ const Signup = () => {
         <TextField
           label="Email"
           variant="outlined"
+          error={errorEmail}
           className=""
           type="email"
           value={email}
           onChange={handleEmail}
-          helperText={!isValidEmail && email !== "" && ""}
+          helperText={errorEmail ? "Invalid email address" : ""}
           autoComplete="off"
       required
       fullWidth

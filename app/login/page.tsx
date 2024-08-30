@@ -23,6 +23,8 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (
@@ -36,6 +38,15 @@ const Login = () => {
   };
 
   const handleSubmit = async () => {
+    e.preventDefault();
+    setErrorPassword(password.trim() === "");
+    setErrorEmail(email.trim() === "");
+    if (
+      password.trim() === "" ||
+      email.trim() === ""
+    ) {
+      return;
+    }
 try{
     const signInData = await signIn("credentials", {
       email: email,
@@ -62,6 +73,7 @@ try{
           label="Email"
           fullWidth
           variant="outlined"
+          error={errorEmail}
           className="my-3"
           InputProps={{
             endAdornment: (
@@ -78,7 +90,7 @@ try{
           required
         />
         <br />
-        <FormControl className="my-3" fullWidth required variant="outlined">
+        <FormControl className="my-3" fullWidth required variant="outlined" error={errorPassword}>
           <InputLabel htmlFor="outlined-adornment-password">
             Password
           </InputLabel>
