@@ -24,6 +24,7 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string>('');
   const [errorName, setErrorName] = useState(false);
+  const [errorPassword, setErrorPassword] = useState(false);
   const [errorEmail, setErrorEmail] = useState(false);
 
   const validatePassword = (value: string) => {
@@ -76,6 +77,7 @@ const Signup = () => {
     const value = event.target.value;
     setPassword(value);
     validatePassword(value);
+    setErrorPassword(value.trim() === "");
       };
   // Password End
 
@@ -83,9 +85,11 @@ const Signup = () => {
     e.preventDefault();
     setErrorName(name.trim() === "");
     setErrorEmail(email.trim() === "");
+    setErrorPassword(password.trim() === "");
     if (
       name.trim() === "" ||
-      email.trim() === ""
+      email.trim() === "" ||
+      password.trim() === ""
     ) {
       return;
     }
@@ -161,7 +165,7 @@ const Signup = () => {
         /> 
         <br />
    
-        <FormControl className="my-4" variant="outlined" fullWidth>
+        <FormControl className="my-4" variant="outlined" fullWidth error={errorPassword}  >
           <InputLabel htmlFor="outlined-adornment-password">
            Password
           </InputLabel>
