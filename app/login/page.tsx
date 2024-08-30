@@ -23,8 +23,8 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorPassword, setErrorPassword] = useState("");
-  const [errorEmail, setErrorEmail] = useState("");
+  const [errorPassword, setErrorPassword] = useState(false);
+  const [errorEmail, setErrorEmail] = useState(false)
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (
@@ -35,9 +35,13 @@ const Login = () => {
 
   const handlePasswordChange = (event: any) => {
     setPassword(event.target.value);
+    setErrorPassword(event.target.value.trim() === "");
   };
-
-  const handleSubmit = async () => {
+  const handleEmail = (event:any) => {
+    setEmail(event.target.value);
+    setErrorEmail(event.target.value.trim() === "");
+  };
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     setErrorPassword(password.trim() === "");
     setErrorEmail(email.trim() === "");
@@ -86,7 +90,7 @@ try{
           name="email"
           value={email}
           autoComplete="off"
-          onChange={(e: any) => setEmail(e.target.value)}
+          onChange={handleEmail}
           required
         />
         <br />

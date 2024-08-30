@@ -22,9 +22,7 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState<any>();
   const [showPassword, setShowPassword] = useState(false);
-  const [isValid, setIsValid] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const [isValidEmail, setIsValidEmail] = useState(false);
   const [errorName, setErrorName] = useState(false);
   const [errorEmail, setErrorEmail] = useState(false);
 
@@ -131,7 +129,7 @@ const Signup = () => {
           error={errorName}
           autoComplete="off"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={handleName}
       required
       fullWidth
           InputProps={{
@@ -193,7 +191,7 @@ const Signup = () => {
       <br />
       <div className="d-flex justify-content-center mb-3 align-items-center">
       
-        <Button onClick={handleSubmit} disabled={!!error || !isValidEmail} variant="contained" color="primary">
+        <Button onClick={handleSubmit} disabled={!!error} variant="contained" color="primary">
           Submit
         </Button>
       </div>

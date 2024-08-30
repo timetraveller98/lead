@@ -1,6 +1,7 @@
 import { db } from "@/app/libs/db";
 import { NextResponse } from "next/server";
 import {hash} from 'bcrypt'
+import { getCurrentUser } from "@/actions/getCurrentUser";
 
 export async function POST(req:Request) {
     try {
