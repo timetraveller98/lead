@@ -138,7 +138,7 @@ const Signup = () => {
       fullWidth
           InputProps={{
             endAdornment: (
-              <InputAdornment position="end">< PeopleIcon /></InputAdornment>
+              <InputAdornment position="end">< PeopleIcon className="primary" /></InputAdornment>
             ),
           }}
         />
@@ -159,7 +159,7 @@ const Signup = () => {
         
           InputProps={{
             endAdornment: (
-              <InputAdornment position="end">< EmailIcon /></InputAdornment>
+              <InputAdornment position="end">< EmailIcon className="primary" /></InputAdornment>
             ),
           }}
         /> 
@@ -182,7 +182,7 @@ const Signup = () => {
                   onMouseDown={handleMouseDownPassword}
                   edge="end"
                 >
-                  {showPassword ? <VisibilityOff  /> : <Visibility />}
+                  {showPassword ? <VisibilityOff className="primary" /> : <Visibility className="primary" />}
                 </IconButton>
               </InputAdornment>
             }
