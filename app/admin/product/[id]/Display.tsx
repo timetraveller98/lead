@@ -91,7 +91,7 @@ const Display = ({id}:any) => {
           <br />
           <TextField
             fullWidth
-            value={price === undefined ? 0 : price}
+            value={price}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrice(parseInt(e.target.value))}
                 label="Price"
             multiline
