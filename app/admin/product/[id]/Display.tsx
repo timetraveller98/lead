@@ -15,7 +15,7 @@ import Price from '@mui/icons-material/CurrencyRupee';
 const Display = ({id}:any) => {
   const router = useRouter();
   const [name, setName] = useState("");
-  const [price, setPrice] = useState('')
+  const [price, setPrice] = useState(0)
 
     // Call Single API Data
 
