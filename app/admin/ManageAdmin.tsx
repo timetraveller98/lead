@@ -9,30 +9,33 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from "@mui/icons-material/Edit";
 
-const ManageAdmin = () => {
+interface Props {
+    email:string | null | undefined;
+}
+const ManageAdmin:React.FC<Props>= ({email}) => {
     const router = useRouter();
-    const [leadData, setLeadData] = useState<any[]>([]);
-
+    const [productData, setProductData] = useState<any[]>([]);
     useEffect(() => {
-        axios.get('/api/lead')
+        axios.get('/api/product')
             .then((response) => {
-                setLeadData(response.data.data);
+                const filteredProducts = response.data.products.filter((product: any) => product.user.email === email);
+                setProductData(filteredProducts);
             })
             .catch((error: any) => {
                 const errorMessage = error.response ? error.response.data.message : error.message;
                 toast.error(errorMessage);
             });
-    }, [leadData]);
+    }, [productData]);
 //   Show Contact
 
-const updateLead =(id: any)=>{
-    router.push(`/admin/lead/${id}`)
+const updateProduct =(id: any)=>{
+    router.push(`/admin/product/${id}`)
 }
     // Call Delete API
-    const deleteLead = async (id: any) => {
+    const deleteProduct = async (id: any) => {
         if (confirm("Do you want to Delete ?") === true) {
             try {
-                let response = await fetch(`/api/lead/${id}`, {
+                let response = await fetch(`/api/product/${id}`, {
                     method: 'DELETE',
                     cache: 'no-cache',
                 });
@@ -47,29 +50,24 @@ const updateLead =(id: any)=>{
             }
         }
     }
-
     const columns = useMemo(() => [
         { field: 'name', headerName: 'Name', width: 150 },
-        { field: 'contact', headerName: 'Contact', width: 150 },
-        { field: 'email', headerName: 'Email', width: 250 },
         {
-            field: 'products', headerName: 'Products', width: 200, renderCell: (params: any) => (
-                <p>{params.row.productA ? " A, ":null}{params.row.productB? " B, ":null}{params.row.productC? "C ":null}</p>
-            )
+            field: 'price', headerName: 'Price', width: 200,
         },
         {
             field: 'update', headerName: 'Update', width: 130, renderCell: (params: any) => (
               
-                <EditIcon style={{cursor:'pointer'}} onClick={() => updateLead(params.id)} color='success' fontSize='large' />
+                <EditIcon style={{cursor:'pointer'}} onClick={() => updateProduct(params.id)} color='success' fontSize='large' />
             )
         },
         {
             field: 'delete', headerName: 'Delete', width: 130, renderCell: (params: any) => (
               
-                <DeleteForeverIcon style={{cursor:'pointer'}}  onClick={() => deleteLead(params.id)} color='error' fontSize='large' />
+                <DeleteForeverIcon style={{cursor:'pointer'}}  onClick={() => deleteProduct(params.id)} color='error' fontSize='large' />
             )
         }
-    ], [leadData]);
+    ], [productData]);
 
     return (
         <Container>
@@ -80,9 +78,9 @@ const updateLead =(id: any)=>{
                     disableColumnFilter
                     disableColumnSelector
                     disableDensitySelector
-                        rows={leadData}
+                        rows={productData}
                         columns={columns}
-                        getRowId={(row) => row._id}
+                        getRowId={(row) => row.id}
                         slots={{ toolbar: GridToolbar }}
                         slotProps={{
                             toolbar: {

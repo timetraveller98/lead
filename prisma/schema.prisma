@@ -8,13 +8,24 @@ datasource db {
 }
 
 model User {
-  id               String    @id @default(auto()) @map("_id") @db.ObjectId
-  password         String
-  email            String    @unique
-  name             String
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
-  role             Role      @default(USER)
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  password  String
+  email     String    @unique
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  role      Role      @default(USER)
+  product  Product[]
+}
+
+model Product {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String   
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 enum Role {
