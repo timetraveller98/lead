@@ -15,7 +15,7 @@ import Price from '@mui/icons-material/CurrencyRupee';
 const Display = ({id}:any) => {
   const router = useRouter();
   const [name, setName] = useState("");
-  const [price, setPrice] = useState(0)
+  const [price, setPrice] = useState('')
 
     // Call Single API Data
 
@@ -92,7 +92,7 @@ const Display = ({id}:any) => {
           <TextField
             fullWidth
             value={price}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrice(parseInt(e.target.value))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrice(e.target.value === '' ? '' : parseFloat(e.target.value) || 0)}
                 label="Price"
             multiline
             variant="outlined"
