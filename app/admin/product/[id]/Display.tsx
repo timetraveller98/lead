@@ -54,7 +54,7 @@ const Display = ({id}:any) => {
 
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
-    setValue(inputValue === '' ? '' : parseFloat(inputValue) || 0); // Handle empty input gracefully
+    setPrice(inputValue === '' ? '' : parseFloat(inputValue) || 0); // Handle empty input gracefully
   };
 
 
